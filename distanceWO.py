@@ -91,7 +91,10 @@ def Expert(user, offers):
                         aux = max(branch[1], aux)
                 p += aux
 
-        puntuation[4] = p / len(offer[3])
+        if len(offer[3]) == 0:
+            puntuation[4] = 0
+        else:
+            puntuation[4] = p / len(offer[3])
 
         return sum(puntuation) * 2  # La ponemos del 0 al 10
 
