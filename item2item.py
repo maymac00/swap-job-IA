@@ -1,4 +1,3 @@
-import copy
 
 import numpy as np
 import math
@@ -92,5 +91,6 @@ def item2item(user, liked, items):
     for v_o in vectorized_offers:
         compatibility.append((sum([cosine_similarity(v_o[:-1], v_l[:-1]) for v_l in vectorized_likeds])/len(vectorized_likeds), v_o[5]))
     compatibility.sort(key=lambda x: x[0], reverse=True)
+    print(compatibility)
     return np.array(compatibility)[:, 1].astype(int)
     pass
