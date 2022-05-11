@@ -1,0 +1,4 @@
+numpy~=1.22.3
+pgeocode~=0.3.0
+haversine~=2.5.1
+websockets~=10.3
