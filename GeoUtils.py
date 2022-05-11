@@ -1,7 +1,5 @@
-import numpy as np
-import pgeocode
 import haversine as hs
-# from math import abs
+import pgeocode
 
 
 class GeoUtils:
