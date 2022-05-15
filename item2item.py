@@ -1,6 +1,6 @@
-
 import numpy as np
 import math
+
 from GeoUtils import GeoUtils
 from distanceWO import branches, unique_list
 
@@ -73,9 +73,15 @@ def item2item(user, liked, items):
 
         v_t[3] = 0.0 if offer[0] and user == 1 else 1.0
 
-        v_o = vectorize_skill(offer[3])
+        p = vectorize_skill(offer[3])
+        inds = np.where(p == 1)
+        v_o = np.zeros_like(p)
+        v_o[inds] = 1
 
-        v_t[4] = cosine_similarity(v_u, v_o)
+        inds = np.where(v_o != 1)
+        v_c = np.copy(v_u)
+        v_c[inds] = 0
+        v_t[4] = cosine_similarity(v_c, v_o)
         v_t[5] = offer[5]
         return v_t
 
@@ -89,6 +95,7 @@ def item2item(user, liked, items):
 
     compatibility = []
     for v_o in vectorized_offers:
+        aux = np.where(v_o == 1)
         compatibility.append((sum([cosine_similarity(v_o[:-1], v_l[:-1]) for v_l in vectorized_likeds])/len(vectorized_likeds), v_o[5]))
     compatibility.sort(key=lambda x: x[0], reverse=True)
     print(compatibility)
